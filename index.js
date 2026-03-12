@@ -1,6 +1,10 @@
 const express = require('express')
+const ejs = require('ejs')
 const app = express();
 const portNo = 2008;
+const name = "Oseoluwa";
+
+app.set("view engine", "ejs")
 const musicNga = [
   {
     id: 1,
@@ -88,11 +92,18 @@ const musicNga = [
 
 ];
 
-
+// 
 app.get('/api', (req,res)=>{
     res.send(musicNga)
 })
 
+app.get('/', (req,res)=>{
+    res.sendFile(__dirname + '/index.html')
+})
+
+app.get('/about', (req,res)=>{
+    res.render('index.ejs', {name: name})
+})
 
 app.listen(portNo, ()=> {
     console.log(`running the port${portNo}`);
